@@ -24,13 +24,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Cursor readDatabase = queryData();
-        int productIdColumnIndex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_ID);
-        int productNameColumnindex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_PRODUCT_NAME);
-        int productPriceColumnIndex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_PRICE);
-        int productQuantityColumnIndex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_QUANTITY);
-        int supplierNameColumnIndex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_NAME);
-        int supplierPhoneColumnIndex = readDatabase.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
+        Cursor readDatabaseCursor = queryData();
+        int productIdColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_ID);
+        int productNameColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_PRODUCT_NAME);
+        int productPriceColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_PRICE);
+        int productQuantityColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_QUANTITY);
+        int supplierNameColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_NAME);
+        int supplierPhoneColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
+
+        Log.i("Mihai's database", "Database content :");
+        while (readDatabaseCursor.moveToNext()) {
+            Log.i(String.valueOf(productIdColumnIndex), String.valueOf(readDatabaseCursor.getInt(productIdColumnIndex)));
+            Log.i(String.valueOf(productNameColumnIndex), readDatabaseCursor.getString(productNameColumnIndex));
+            Log.i(String.valueOf(productPriceColumnIndex), String.valueOf(readDatabaseCursor.getInt(productPriceColumnIndex)));
+            Log.i(String.valueOf(productQuantityColumnIndex), String.valueOf(readDatabaseCursor.getInt(productQuantityColumnIndex)));
+            Log.i(String.valueOf(supplierNameColumnIndex), readDatabaseCursor.getString(supplierNameColumnIndex));
+            Log.i(String.valueOf(supplierPhoneColumnIndex), readDatabaseCursor.getString(supplierPhoneColumnIndex));
+        }
+        readDatabaseCursor.close();
     }
 
     private void insertData() {
