@@ -1,12 +1,14 @@
 package com.example.android.inventoryapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.android.inventoryapp.database.ProductContract;
 import com.example.android.inventoryapp.database.ProductDbHelper;
@@ -48,6 +50,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_a_product_menu:
+                break;
+            case R.id.settings_menu:
+                break;
+            case R.id.about_menu:
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
         return true;
     }
 
