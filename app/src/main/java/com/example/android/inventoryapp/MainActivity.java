@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 
 import com.example.android.inventoryapp.database.ProductContract;
 import com.example.android.inventoryapp.database.ProductDbHelper;
@@ -42,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
             Log.i(String.valueOf(supplierPhoneColumnIndex), readDatabaseCursor.getString(supplierPhoneColumnIndex));
         }
         readDatabaseCursor.close();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
     }
 
     private void insertData() {
