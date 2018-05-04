@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+    <string name="about_app_message">Created by Mihai, for Udacity course.</string>
 </resources>

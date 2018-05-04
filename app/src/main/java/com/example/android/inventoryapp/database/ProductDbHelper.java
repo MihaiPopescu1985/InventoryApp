@@ -12,6 +12,7 @@ public class ProductDbHelper extends SQLiteOpenHelper {
 
     private static final String SPACE = " ";
     private static final String COMMA = ",";
+    private static final String NOT_NULL = "NOT NULL";
     private static final String TEXT = "TEXT";
     private static final String INTEGER = "INTEGER";
 
@@ -22,11 +23,11 @@ public class ProductDbHelper extends SQLiteOpenHelper {
             new StringBuilder().append("CREATE TABLE").append(SPACE)
                     .append(ProductContract.Product.TABLE_NAME).append(SPACE).append("(")
                     .append(ProductContract.Product.COLUMN_ID).append(SPACE).append(INTEGER).append(" PRIMARY KEY AUTOINCREMENT").append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_PRODUCT_NAME).append(SPACE).append(TEXT).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_PRICE).append(SPACE).append(INTEGER).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_QUANTITY).append(SPACE).append(INTEGER).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_NAME).append(SPACE).append(TEXT).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER).append(SPACE).append(TEXT)
+                    .append(SPACE).append(ProductContract.Product.COLUMN_PRODUCT_NAME).append(SPACE).append(TEXT).append(SPACE).append(NOT_NULL).append(COMMA)
+                    .append(SPACE).append(ProductContract.Product.COLUMN_PRICE).append(SPACE).append(INTEGER).append(SPACE).append(NOT_NULL).append(COMMA)
+                    .append(SPACE).append(ProductContract.Product.COLUMN_QUANTITY).append(SPACE).append(INTEGER).append(SPACE).append(NOT_NULL).append(COMMA)
+                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_NAME).append(SPACE).append(TEXT).append(SPACE).append(NOT_NULL).append(COMMA)
+                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER).append(SPACE).append(SPACE).append(NOT_NULL).append(TEXT)
                     .append(SPACE).append(");").toString();
 
     // Constructor
