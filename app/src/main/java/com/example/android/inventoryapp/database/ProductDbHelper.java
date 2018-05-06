@@ -10,25 +10,9 @@ public class ProductDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "products.db";
 
-    private static final String SPACE = " ";
-    private static final String COMMA = ",";
-    private static final String NOT_NULL = "NOT NULL";
-    private static final String TEXT = "TEXT";
-    private static final String INTEGER = "INTEGER";
-
     // CREATE TABLE product.db (_id INTEGER PRIMARY KEY AUTOINCREMENT,
     // product_name TEXT, price INTEGER, quantity INTEGER, supplier_name TEXT,
     // supplier_phone_number TEXT );
-    private static final String CREATE_DATABASE =
-            new StringBuilder().append("CREATE TABLE").append(SPACE)
-                    .append(ProductContract.Product.TABLE_NAME).append(SPACE).append("(")
-                    .append(ProductContract.Product.COLUMN_ID).append(SPACE).append(INTEGER).append(" PRIMARY KEY AUTOINCREMENT").append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_PRODUCT_NAME).append(SPACE).append(TEXT).append(SPACE).append(NOT_NULL).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_PRICE).append(SPACE).append(INTEGER).append(SPACE).append(NOT_NULL).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_QUANTITY).append(SPACE).append(INTEGER).append(SPACE).append(NOT_NULL).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_NAME).append(SPACE).append(TEXT).append(SPACE).append(NOT_NULL).append(COMMA)
-                    .append(SPACE).append(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER).append(SPACE).append(SPACE).append(NOT_NULL).append(TEXT)
-                    .append(SPACE).append(");").toString();
 
     // Constructor
     public ProductDbHelper(Context context) {
@@ -37,7 +21,13 @@ public class ProductDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_DATABASE);
+        db.execSQL("CREATE TABLE products (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " Product_name TEXT NOT NULL," +
+                " Price REAL NOT NULL," +
+                " Quantity INTEGER NOT NULL," +
+                " Supplier_name TEXT NOT NULL," +
+                " Supplier_phone_number TEXT NOT NULL );");
     }
 
     @Override

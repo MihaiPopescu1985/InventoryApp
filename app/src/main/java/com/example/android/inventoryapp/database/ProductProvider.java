@@ -16,11 +16,9 @@ public class ProductProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private static ProductDbHelper mProdDbHelper;
 
-    // TODO : move authority and path as constant in ProductContract.java file
-    // TODO : make code as constants
     static {
-        sUriMatcher.addURI("content://com.example.android.inventoryapp", "/products", 100);
-        sUriMatcher.addURI("content://com.example.android.inventoryapp", "/products/#", 101);
+        sUriMatcher.addURI("com.example.android.inventoryapp", "/products", 100);
+        sUriMatcher.addURI("com.example.android.inventoryapp", "/products/#", 101);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class ProductProvider extends ContentProvider {
                         @Nullable String sortOrder) {
 
         // Returning cursor
-        Cursor cursor;
+        Cursor cursor = null;
 
         // Get database in readable mode
         SQLiteDatabase database = mProdDbHelper.getReadableDatabase();
@@ -47,7 +45,6 @@ public class ProductProvider extends ContentProvider {
         // Get the code from received uri
         int matchUri = sUriMatcher.match(uri);
 
-        // TODO : after setting the uri code as constants, replace the hardcoded cases
         switch (matchUri) {
             case 100:
                 cursor = database.query(ProductContract.Product.TABLE_NAME,
@@ -81,7 +78,7 @@ public class ProductProvider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
 
-        String path = "/content://com.example.android.inventoryapp/products";
+        String path = "content://com.example.android.inventoryapp/products";
 
         int matchUri = sUriMatcher.match(uri);
         switch (matchUri) {
@@ -128,7 +125,7 @@ public class ProductProvider extends ContentProvider {
         stringVerifier = values.getAsString(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
         if (stringVerifier == null)
             return false;
-        int intVerifier = values.getAsInteger(ProductContract.Product.COLUMN_PRICE);
+        double intVerifier = values.getAsDouble(ProductContract.Product.COLUMN_PRICE);
         if (intVerifier <= 0)
             return false;
         intVerifier = values.getAsInteger(ProductContract.Product.COLUMN_QUANTITY);
@@ -199,7 +196,7 @@ public class ProductProvider extends ContentProvider {
         }
 
         if (values.containsKey(ProductContract.Product.COLUMN_PRICE)) {
-            Integer price = values.getAsInteger(ProductContract.Product.COLUMN_PRICE);
+            Float price = values.getAsFloat(ProductContract.Product.COLUMN_PRICE);
             if (price == null) {
                 throw new IllegalArgumentException("Product must have a price !");
             }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_name"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/product_name_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/product_name"
+                android:inputType="text"
+                android:maxLength="25"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/product_price_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price"
+                android:inputType="numberDecimal"
+                android:maxLength="9"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/product_quantity_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/quantity"
+                android:inputType="number"
+                android:maxLength="7"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/supplier_name"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/supplier_name_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/supplier_name"
+                android:inputType="text"
+                android:maxLength="25"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/supplier_phone_number"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/supplier_phone_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/supplier_phone_number"
+                android:inputType="phone"
+                android:maxLength="20"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="211dp">
+
+            <Button
+                android:id="@+id/save_button_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/delete_button_update"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/save" />
+
+            <Button
+                android:id="@+id/delete_button_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/delete" />
+
+            <Button
+                android:id="@+id/increase_quantity_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/quantity_plus" />
+
+            <Button
+                android:id="@+id/decrease_quantity_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/increase_quantity_button"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/quantity_minus" />
+
+            <Button
+                android:id="@+id/order_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="@string/order" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

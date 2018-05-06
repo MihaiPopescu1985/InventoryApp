@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">InventoryApp</string>
     <string name="about_app_message">Created by Mihai, for Udacity course.</string>
+    <string name="product_name">PRODUCT NAME</string>
+    <string name="price">PRICE</string>
+    <string name="quantity">QUANTITY</string>
+    <string name="supplier_name">SUPPLIER NAME</string>
+    <string name="supplier_phone_number">SUPPLIER PHONE NUMBER</string>
+    <string name="save">SAVE</string>
+    <string name="delete">delete</string>
+    <string name="quantity_plus">+ quantity</string>
+    <string name="quantity_minus">- quantity</string>
+    <string name="order">order</string>
+    <string name="please_add_items_from_the_menu_above">Please add items from the menu above.</string>
+    <string name="sell">SELL</string>
 </resources>

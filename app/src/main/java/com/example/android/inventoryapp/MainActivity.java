@@ -1,50 +1,56 @@
 package com.example.android.inventoryapp;
 
-import android.content.ContentValues;
+import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.android.inventoryapp.database.ProductContract;
-import com.example.android.inventoryapp.database.ProductDbHelper;
+import com.example.android.inventoryapp.product.ProductAdder;
+import com.example.android.inventoryapp.product.ProductCursorAdapter;
+import com.example.android.inventoryapp.product.ProductDetail;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
+
+    private ProductCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        insertData();
-    }
+        ListView listView = findViewById(R.id.list_of_products);
+        View emptyView = findViewById(R.id.empty_list_text_view);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        listView.setEmptyView(emptyView);
+        mCursorAdapter = new ProductCursorAdapter(this, null);
+        listView.setAdapter(mCursorAdapter);
 
-        Cursor readDatabaseCursor = queryData();
-        int productIdColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_ID);
-        int productNameColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_PRODUCT_NAME);
-        int productPriceColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_PRICE);
-        int productQuantityColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_QUANTITY);
-        int supplierNameColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_NAME);
-        int supplierPhoneColumnIndex = readDatabaseCursor.getColumnIndex(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, ProductDetail.class);
 
-        Log.i("Mihai's database", "Database content :");
-        while (readDatabaseCursor.moveToNext()) {
-            Log.i(String.valueOf(productIdColumnIndex), String.valueOf(readDatabaseCursor.getInt(productIdColumnIndex)));
-            Log.i(String.valueOf(productNameColumnIndex), readDatabaseCursor.getString(productNameColumnIndex));
-            Log.i(String.valueOf(productPriceColumnIndex), String.valueOf(readDatabaseCursor.getInt(productPriceColumnIndex)));
-            Log.i(String.valueOf(productQuantityColumnIndex), String.valueOf(readDatabaseCursor.getInt(productQuantityColumnIndex)));
-            Log.i(String.valueOf(supplierNameColumnIndex), readDatabaseCursor.getString(supplierNameColumnIndex));
-            Log.i(String.valueOf(supplierPhoneColumnIndex), readDatabaseCursor.getString(supplierPhoneColumnIndex));
-        }
-        readDatabaseCursor.close();
+                Uri currentItem = ContentUris.withAppendedId(
+                        Uri.parse("content://com.example.android.inventoryapp/products"),
+                        id);
+                intent.setData(currentItem);
+                startActivity(intent);
+            }
+        });
+
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -57,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_a_product_menu:
-                break;
-            case R.id.settings_menu:
+                startActivity(new Intent(this, ProductAdder.class));
                 break;
             case R.id.about_menu:
                 startActivity(new Intent(this, AboutActivity.class));
@@ -69,42 +74,34 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void insertData() {
-        // Insert into database.
-        ProductDbHelper dbHelper = new ProductDbHelper(this.getBaseContext());
-        SQLiteDatabase writeProductDatabase = dbHelper.getWritableDatabase();
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        ContentValues values = new ContentValues();
-        values.put(ProductContract.Product.COLUMN_PRODUCT_NAME, "first product");
-        values.put(ProductContract.Product.COLUMN_PRICE, 1);
-        values.put(ProductContract.Product.COLUMN_QUANTITY, 21);
-        values.put(ProductContract.Product.COLUMN_SUPPLIER_NAME, "First supplier");
-        values.put(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER, "123456789");
-
-        writeProductDatabase.insert(ProductContract.Product.TABLE_NAME, null, values);
-        Log.i("Mihai's database", "Filled with dummy data.");
-    }
-
-    private Cursor queryData() {
-        ProductDbHelper dbHelper = new ProductDbHelper(this.getBaseContext());
-        SQLiteDatabase readProductDatabase = dbHelper.getReadableDatabase();
-
-        String[] projections = {ProductContract.Product.COLUMN_ID,
+        // Define a projection that specifies the columns from the table we care about.
+        String[] projection = {
+                ProductContract.Product.COLUMN_ID,
                 ProductContract.Product.COLUMN_PRODUCT_NAME,
-                ProductContract.Product.COLUMN_PRICE,
                 ProductContract.Product.COLUMN_QUANTITY,
+                ProductContract.Product.COLUMN_PRICE,
                 ProductContract.Product.COLUMN_SUPPLIER_NAME,
                 ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER};
 
-        Cursor cursor = readProductDatabase.query(
-                ProductContract.Product.TABLE_NAME,
-                projections,
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,
+                Uri.parse("content://com.example.android.inventoryapp/products"),
+                projection,
                 null,
                 null,
-                null,
-                null,
-                null
-        );
-        return cursor;
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
     }
 }
