@@ -54,42 +54,51 @@ public class ProductAdder extends AppCompatActivity {
                 editTextValue = mProductName.getText().toString();
                 if (verifyEntry(editTextValue)) {
                     values.put(ProductContract.Product.COLUMN_PRODUCT_NAME, editTextValue);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.insert_product_name, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    editTextValue = mProductPrice.getText().toString();
-                    if (verifyEntry(editTextValue)) {
-                        values.put(ProductContract.Product.COLUMN_PRICE, editTextValue);
+                editTextValue = mProductPrice.getText().toString();
+                if (verifyEntry(editTextValue)) {
+                    values.put(ProductContract.Product.COLUMN_PRICE, editTextValue);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.insert_product_price, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                editTextValue = mProductQuantity.getText().toString();
+                if (verifyEntry(editTextValue)) {
+                    values.put(ProductContract.Product.COLUMN_QUANTITY, editTextValue);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.insert_product_quantity, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                        editTextValue = mProductQuantity.getText().toString();
-                        if (verifyEntry(editTextValue)) {
-                            values.put(ProductContract.Product.COLUMN_QUANTITY, editTextValue);
+                editTextValue = mSupplierName.getText().toString();
+                if (verifyEntry(editTextValue)) {
+                    values.put(ProductContract.Product.COLUMN_SUPPLIER_NAME, editTextValue);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.insert_supplier_name, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                            editTextValue = mSupplierName.getText().toString();
-                            if (verifyEntry(editTextValue)) {
-                                values.put(ProductContract.Product.COLUMN_SUPPLIER_NAME, editTextValue);
-
-                                editTextValue = mSupplierPhone.getText().toString();
-                                if (verifyEntry(editTextValue))
-                                    values.put(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER, editTextValue);
-                                else
-                                    Toast.makeText(getBaseContext(), "Please insert suppliers phone number", Toast.LENGTH_SHORT).show();
-                            } else
-                                Toast.makeText(getBaseContext(), "Please insert suppliers name", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getBaseContext(), "Please insert product quantity", Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getBaseContext(), "Please insert product price", Toast.LENGTH_SHORT).show();
-                } else
-                    Toast.makeText(getBaseContext(), "Please insert product name", Toast.LENGTH_SHORT).show();
+                editTextValue = mSupplierPhone.getText().toString();
+                if (verifyEntry(editTextValue))
+                    values.put(ProductContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER, editTextValue);
+                else {
+                    Toast.makeText(getBaseContext(), R.string.insert_supplier_phone, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Uri mNewUri = null;
                 if (values.size() == 5) {
                     mNewUri = getContentResolver().insert(contentUri, values);
                 }
                 if (mNewUri != null) {
-                    Toast.makeText(getBaseContext(), "Product added.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getBaseContext(), MainActivity.class));
                 } else
-                    Toast.makeText(getBaseContext(), "Error inserting new product", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.error_inserting_product, Toast.LENGTH_SHORT).show();
             }
         });
     }

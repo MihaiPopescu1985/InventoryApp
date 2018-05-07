@@ -13,4 +13,17 @@
     <string name="order">order</string>
     <string name="please_add_items_from_the_menu_above">Please add items from the menu above.</string>
     <string name="sell">SELL</string>
+    <string name="insert_product_name">Please insert product name</string>
+    <string name="insert_product_price">Please insert product price</string>
+    <string name="insert_product_quantity">Please insert product quantity</string>
+    <string name="insert_supplier_name">Please insert suppliers name</string>
+    <string name="insert_supplier_phone">Please insert suppliers phone number</string>
+    <string name="product_added">Product added.</string>
+    <string name="error_inserting_product">Error inserting new product</string>
+    <string name="product_updated">Product updated.</string>
+    <string name="error_updating_product">Error updating product</string>
+    <string name="delete_message">Are you sure you want to delete this entry ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="product_deleted">Product deleted.</string>
 </resources>
